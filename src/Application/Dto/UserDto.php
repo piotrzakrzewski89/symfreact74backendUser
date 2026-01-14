@@ -89,6 +89,6 @@ class UserDto
     }
     public static function fromEntities(array $users): array
     {
-        return array_map(fn(User $user)  => self::fromEntity($user), $users);
+        return array_map(fn(User $user) => self::fromEntity($user), $users);
     }
 }

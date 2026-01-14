@@ -39,22 +39,25 @@ class KeycloakAuthenticator extends AbstractAuthenticator
 
     public function authenticate(Request $request): Passport
     {
-       
-        $authHeader = $request->headers->get('Authorization');
-        $tokenString = substr($authHeader, 7);
+        try {
+            $authHeader = $request->headers->get('Authorization');
+            $tokenString = substr($authHeader, 7);
 
-        $token = $this->jwtConfig->parser()->parse($tokenString);
+            $token = $this->jwtConfig->parser()->parse($tokenString);
 
-        $this->jwtConfig->validator()->assert(
-            $token,
-            new SignedWith($this->jwtConfig->signer(), $this->jwtConfig->verificationKey())
-        );
+            $this->jwtConfig->validator()->assert(
+                $token,
+                new SignedWith($this->jwtConfig->signer(), $this->jwtConfig->verificationKey())
+            );
 
-        $claims = $token->claims()->all(); // w lcobucci/jwt 4.x/5.x
-        $username = $claims['preferred_username'] ?? 'unknown';
-        $roles = $claims['resource_access']['sandbox']['roles'] ?? [];
+            $claims = $token->claims()->all();
+            $username = $claims['preferred_username'] ?? 'unknown';
+            $roles = $claims['resource_access']['sandbox']['roles'] ?? [];
 
-        return new SelfValidatingPassport(new UserBadge($username, fn() => new InMemoryUser($username, null, $roles)));
+            return new SelfValidatingPassport(new UserBadge($username, fn() => new InMemoryUser($username, null, $roles)));
+        } catch (\Exception $e) {
+            throw new AuthenticationException('Invalid JWT token: ' . $e->getMessage());
+        }
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response

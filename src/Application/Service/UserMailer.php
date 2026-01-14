@@ -65,9 +65,10 @@ class UserMailer
             'email.user.changeActive.body',
             [
                 '%firstName%' => $user->getFirstName(),
-                '%lastName%' => $user->getFirstName(),
+                '%lastName%' => $user->getLastName(),
                 '%email%' => $user->getEmail(),
                 '%employeeNumber%' => $user->getEmployeeNumber(),
+                '%isActive%' => $user->isActive() ? 'true' : 'false',
             ]
         );
 
@@ -98,10 +99,28 @@ class UserMailer
         );
     }
 
+    public function sendVerifyMail(string $link, string $email): void
+    {
+        $subject = $this->translator->trans('email.user.verify.subject');
+        $bodyContent = $this->translator->trans(
+            'email.user.verify.body',
+            [
+                '%email%' => $email,
+                '%link%' => $link,
+            ]
+        );
+
+        $body = $this->renderBaseTemplate($subject, $bodyContent);
+
+        $this->messageBus->dispatch(
+            new SendMailMessage($email, $subject, $body)
+        );
+    }
+
     private function renderBaseTemplate(string $title, string $content): string
     {
         return $this->twig->render(
-            'emails/base.html.twig',
+            'emails/user-base.html.twig',
             [
                 'title' => $title,
                 'content' => $content

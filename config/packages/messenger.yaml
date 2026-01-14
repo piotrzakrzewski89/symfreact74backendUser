@@ -14,7 +14,7 @@ framework:
         dsn: "%env(MESSENGER_TRANSPORT_DSN)%"
         options:
           exchange:
-            name: user
+            name: send_mail
             type: direct
           queues:
             send_user_event: ~

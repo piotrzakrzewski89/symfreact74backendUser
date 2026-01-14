@@ -1,4 +1,4 @@
-FROM php:8.3-fpm
+FROM php:8.5-fpm
 
 WORKDIR /app
 
@@ -7,9 +7,11 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev libpng-dev libjpeg-dev libicu-dev libonig-dev libxslt1-dev acl \
     librabbitmq-dev libpq-dev \
  && docker-php-ext-configure gd --with-jpeg --with-freetype \
- && docker-php-ext-install -j$(nproc) mysqli pdo pdo_mysql pdo_pgsql pgsql zip xsl gd intl opcache exif mbstring \
- && pecl install amqp xdebug \
- && docker-php-ext-enable amqp xdebug pdo_mysql \
+ && docker-php-ext-install -j$(nproc) mysqli pdo pdo_mysql pdo_pgsql pgsql zip xsl gd intl exif mbstring \
+ && pecl install amqp \
+ && docker-php-ext-enable amqp pdo_mysql \
+ && pecl install xdebug \
+ && docker-php-ext-enable xdebug \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini

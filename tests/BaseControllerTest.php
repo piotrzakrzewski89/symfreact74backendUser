@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
-use App\Application\Factory\CompanyFactory;
-use App\Application\Service\CompanyMailer;
-use App\Application\Service\CompanyService;
-use App\Domain\Repository\CompanyRepository;
+use App\Application\Factory\UserFactory;
+use App\Application\Service\UserMailer;
+use App\Application\Service\UserService;
+use App\Domain\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -19,12 +19,12 @@ abstract class BaseTestController extends WebTestCase
 {
     protected KernelBrowser $client;
     protected ValidatorInterface $validator;
-    protected CompanyRepository $repo;
+    protected UserRepository $repo;
     protected EntityManagerInterface $em;
-    protected CompanyFactory $factory;
-    protected CompanyService $service;
+    protected UserFactory $factory;
+    protected UserService $service;
     protected MessageBusInterface $messageBus;
-    protected CompanyMailer $companyMailer;
+    protected UserMailer $userMailer;
 
     protected function setUp(): void
     {
@@ -32,22 +32,18 @@ abstract class BaseTestController extends WebTestCase
         $container = static::getContainer();
         $connection = $container->get('database_connection');
         $this->validator = self::getContainer()->get(ValidatorInterface::class);
-        $this->repo = $this->createMock(CompanyRepository::class);
+        $this->repo = $this->createMock(UserRepository::class);
         $this->em = $this->createMock(EntityManagerInterface::class);
-        $this->factory = $this->createMock(CompanyFactory::class);
+        $this->factory = $this->createMock(UserFactory::class);
         // Zamockowany MessageBus w kontenerze
         $this->messageBus = $this->createMock(MessageBusInterface::class);
-        $this->messageBus
-            ->method('dispatch')
-            ->willReturnCallback(fn($event) => new \Symfony\Component\Messenger\Envelope($event));
 
         $this->client->getContainer()->set(MessageBusInterface::class, $this->messageBus);
         $this->client->disableReboot();
         
-        $this->companyMailer = $this->createMock(CompanyMailer::class);
-        $this->service = new CompanyService($this->repo, $this->em, $this->factory,  $this->messageBus, $this->companyMailer);
+        $this->userMailer = $this->createMock(UserMailer::class);
         // Przywróć stan bazy
-        $connection->executeStatement('TRUNCATE TABLE "company" RESTART IDENTITY CASCADE');
+        $connection->executeStatement('TRUNCATE TABLE "user" RESTART IDENTITY CASCADE');
     }
 
     protected function tearDown(): void

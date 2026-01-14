@@ -1,19 +1,102 @@
-email.user.created.subject: "Pracownik został utworzony"
+email.user.created.subject: "Nowy pracownik dodany"
 email.user.created.body: |
-  <p>Pracownik <strong>%firstName% %lastName%</strong> o numerze kadrowym <strong>%employeeNumber%</strong> został utworzony w systemie.</p>
-  <p><strong>Email kontaktowy:</strong> %email%</p>
+  <div style="background: #d4edda; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+    <h2 style="color: #155724; margin: 0 0 10px 0;">👤 Nowy pracownik!</h2>
+    <p style="font-size: 16px; margin-bottom: 15px;">Pracownik <strong style="color: #155724;">%firstName% %lastName%</strong> został pomyślnie dodany do systemu.</p>
+    
+  <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid #155724;">
+    <p style="margin: 0;"><strong>📋 Dane pracownika:</strong></p>
+    <div style="margin-left: 20px;">
+      <p><strong>Imię i nazwisko:</strong> %firstName% %lastName%</p>
+      <p><strong>Numer kadrowy:</strong> %employeeNumber%</p>
+      <p><strong>Email:</strong> %email%</p>
+    </div>
+  </div>
+  
+  <div style="background: #fff3cd; padding: 15px; border-radius: 5px; margin-top: 15px;">
+    <p style="margin: 0;"><strong>ℹ️ Informacje:</strong></p>
+    <p style="margin-left: 20px;">Pracownik otrzyma dostęp do systemu.</p>
+  </div>
 
-email.user.updated.subject: "Pracownik został zaktualizowany"
+email.user.updated.subject: "Dane pracownika zaktualizowane"
 email.user.updated.body: |
-  <p>Pracownik <strong>%firstName% %lastName%</strong> o numerze kadrowym <strong>%employeeNumber%</strong> został zmodyfikowany w systemie.</p>
-  <p><strong>Email kontaktowy:</strong> %email%</p>
+  <div style="background: #fff3cd; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+    <h2 style="color: #0d6efd; margin: 0 0 10px 0;">📝 Dane pracownika zaktualizowane</h2>
+    <p style="font-size: 16px; margin-bottom: 15px;">Dane pracownika <strong style="color: #0d6efd;">%firstName% %lastName%</strong> zostały pomyślnie zaktualizowane.</p>
+    
+  <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid #0d6efd;">
+    <p style="margin: 0;"><strong>📋 Zaktualizowane dane:</strong></p>
+    <div style="margin-left: 20px;">
+      <p><strong>Imię i nazwisko:</strong> %firstName% %lastName%</p>
+      <p><strong>Numer kadrowy:</strong> %employeeNumber%</p>
+      <p><strong>Email:</strong> %email%</p>
+    </div>
+  </div>
 
-email.user.deleted.subject: "Pracownik został usunięty"
+email.user.deleted.subject: "Pracownik usunięty"
 email.user.deleted.body: |
-  <p>Pracownik <strong>%firstName% %lastName%</strong> o numerze kadrowym <strong>%employeeNumber%</strong> został usunięta w systemie.</p>
-  <p><strong>Email kontaktowy:</strong> %email%</p>
+  <div style="background: #f8d7da; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+    <h2 style="color: #721c24; margin: 0 0 10px 0;">🗑️ Pracownik usunięty</h2>
+    <p style="font-size: 16px; margin-bottom: 15px;">Pracownik <strong style="color: #721c24;">%firstName% %lastName%</strong> został usunięty z systemu.</p>
+    
+  <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid #721c24;">
+    <p style="margin: 0;"><strong>📋 Dane pracownika:</strong></p>
+    <div style="margin-left: 20px;">
+      <p><strong>Imię i nazwisko:</strong> %firstName% %lastName%</p>
+      <p><strong>Numer kadrowy:</strong> %employeeNumber%</p>
+      <p><strong>Email:</strong> %email%</p>
+    </div>
+  </div>
+  
+  <div style="background: #fff3cd; padding: 15px; border-radius: 5px; margin-top: 15px;">
+    <p style="margin: 0;"><strong>ℹ️ Informacje:</strong></p>
+    <p style="margin-left: 20px;">Dane pracownika zostały zachowane w archiwum.</p>
+  </div>
 
-email.user.changeActive.subject: "Pracownik został zaktualizowany - zmiana statusu"
+email.user.changeActive.subject: "Zmiana statusu pracownika"
 email.user.changeActive.body: |
-  <p>Pracownik <strong>%firstName% %lastName%</strong> o numerze kadrowym <strong>%employeeNumber%</strong> został zmodyfikowany w systemie. Została zmieniona aktywność pracownika.</p>
-  <p><strong>Email kontaktowy:</strong> %email%</p>
+  <div style="background: #e7f3ff; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+    <h2 style="color: #0969da; margin: 0 0 10px 0;">🔄 Zmiana statusu pracownika</h2>
+    <p style="font-size: 16px; margin-bottom: 15px;">Pracownik <strong style="color: #0969da;">%firstName% %lastName%</strong> zmienił status.</p>
+    
+  <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid #0969da;">
+    <p style="margin: 0;"><strong>📊 Nowy status:</strong></p>
+    <div style="margin-left: 20px; font-size: 18px; font-weight: bold;">
+      {% if isActive == 'true' %}
+        <span style="color: #28a745;">✅ AKTYWNY</span>
+      {% else %}
+        <span style="color: #dc3545;">❌ NIEAKTYWNY</span>
+      {% endif %}
+    </div>
+  </div>
+  
+  <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin-top: 15px;">
+    <p style="margin: 0;"><strong>ℹ️ Informacje:</strong></p>
+    <p style="margin-left: 20px;">Zmiany statusu można dokonać w panelu administracyjnym.</p>
+  </div>
+
+email.user.verify.subject: "Potwierdzenie adresu email"
+email.user.verify.body: |
+  <div style="background: #d1ecf1; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+    <h2 style="color: #0c5460; margin: 0 0 10px 0;">✉️ Potwierdź swój adres email</h2>
+    <p style="font-size: 16px; margin-bottom: 15px;">Witaj <strong style="color: #0c5460;">%email%</strong>! Prosimy o potwierdzenie Twojego adresu email.</p>
+    
+  <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid #0c5460;">
+    <p style="margin: 0;"><strong>📋 Dane:</strong></p>
+    <div style="margin-left: 20px;">
+      <p><strong>Email:</strong> %email%</p>
+    </div>
+  </div>
+  
+  <div style="background: #d4edda; padding: 20px; border-radius: 8px; margin-top: 20px; text-align: center;">
+    <p style="margin: 0 0 15px 0;"><strong>🔗 Kliknij poniższy przycisk, aby potwierdzić email:</strong></p>
+    <a href="%link%" style="display: inline-block; background: #28a745; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 16px;">
+      Potwierdź email
+    </a>
+  </div>
+  
+  <div style="background: #fff3cd; padding: 15px; border-radius: 5px; margin-top: 15px;">
+    <p style="margin: 0;"><strong>ℹ️ Informacje:</strong></p>
+    <p style="margin-left: 20px;">Jeśli nie możesz kliknąć przycisku, skopiuj i wklej poniższy link do przeglądarki:</p>
+    <p style="margin-left: 20px; word-break: break-all; font-family: monospace; background: #f8f9fa; padding: 5px; border-radius: 3px;">%link%</p>
+  </div>

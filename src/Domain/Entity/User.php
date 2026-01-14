@@ -71,30 +71,30 @@ class User
         $this->isDeleted = false;
         $this->uuid = Uuid::v4();
         $this->roles = [UserRoleEnum::USER->value];
-        $this->createdAt = new \DateTimeImmutable();
+        $this->createdAt = new DateTimeImmutable();
     }
 
     public function activate(Uuid $adminUuid): void
     {
         $this->isActive = true;
         $this->updatedBy = $adminUuid;
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->updatedAt = new DateTimeImmutable();
     }
 
     public function deactivate(Uuid $adminUuid): void
     {
         $this->isActive = false;
         $this->updatedBy = $adminUuid;
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->updatedAt = new DateTimeImmutable();
     }
 
     public function softDelete(Uuid $adminUuid): void
     {
         $this->isDeleted = true;
         $this->isActive = false;
-        $this->deletedAt = new \DateTimeImmutable();
+        $this->deletedAt = new DateTimeImmutable();
         $this->updatedBy = $adminUuid;
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->updatedAt = new DateTimeImmutable();
     }
 
     public function getId(): ?int
